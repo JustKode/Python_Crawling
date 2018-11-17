@@ -31,10 +31,21 @@ Everytime
 from everytime import Everytime
 
 etObj = Everytime('에브리타임 아이디', '에브리타임 비밀번호') # 에브리타임의 아이디와 비밀번호를 입력 합니다.
-etObj.set_lecture_list() # 크롤링을 시행, 2018년 2학기의 에타 시간표를 가져 온다.
+etObj.set_lecture_list() # 크롤링을 시행, 2018년 2학기의 에타 시간표를 가져 옵니다. 성공 시 True, 실패 시 False를 반호나 합니다.
 etObj.set_lecture_list(2017, 2) # Parameter에 년도와 학기를 입력하여, 해당하는 년도와 학기의 시간표를 가져올 수 있습니다.
 list_var = etObj.get_lecture_list() # 크롤링을 해서 가져온 강의의 정보를 반환 합니다.
 print(list_var) # 학생의 수강중인 강의 정보를 반환 합니다. ex) [{"subject": 강의명, "subjnum": 학수 번호, "professor": 교수명}, ...]
+```
+
+KLAS
+
+```python
+from khuis import KHUIS
+
+khuisObj = KHUIS('Info21 아이디', 'Info21 비밀번호') # Info21의 아이디와 비밀번호를 입력 합니다.
+khuisObj.auth() # 0 = 로그인 성공, 1 = 유저 없음, 2 = 비밀번호 오류, 3 = 기타 에러
+khuisObj.get_student_info() # {'studentID': 학번, 'name': 이름, 'college': 단과 대학, 'major': 전공, 'birth' : 생년월일}
+
 ```
 
 ## Contributing
