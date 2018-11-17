@@ -37,7 +37,7 @@ list_var = etObj.get_lecture_list() # 크롤링을 해서 가져온 강의의 �
 print(list_var) # 학생의 수강중인 강의 정보를 반환 합니다. ex) [{"subject": 강의명, "subjnum": 학수 번호, "professor": 교수명}, ...]
 ```
 
-KLAS
+KHUIS
 
 ```python
 from khuis import KHUIS
