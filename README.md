@@ -25,7 +25,7 @@ list_var = klasObj.get_lecture_list() # 크롤링을 해서 가져온 강의의 
 print(list_var) # 학생의 수강중인 강의 정보를 반환 합니다. ex) [{"subject": 강의명, "subjnum": 학수 번호, "professor": 교수명}, ...]
 ```
 
-Everytime
+Everytime Class
 
 ```python
 from everytime import Everytime
@@ -37,7 +37,7 @@ list_var = etObj.get_lecture_list() # 크롤링을 해서 가져온 강의의 �
 print(list_var) # 학생의 수강중인 강의 정보를 반환 합니다. ex) [{"subject": 강의명, "subjnum": 학수 번호, "professor": 교수명}, ...]
 ```
 
-KHUIS
+KHUIS Class
 
 ```python
 from khuis import KHUIS
@@ -48,6 +48,20 @@ khuisObj.get_student_info() # {'studentID': 학번, 'name': 이름, 'college': �
 
 ```
 
+Dorm2Food Class
+
+```python
+from dorm2food import Dorm2Food
+
+dorm2 = Dorm2Food() # Dorm2Food 객체 생성
+dorm2.getTodayFood()
+# 오늘 학식 반환 {'mor_main': 아침 메뉴, 'lun_main' : 점심 메뉴, 'eve_main' : 저녁 메뉴, 'special' : 특식, 'mor_sub' : 체육부 아침, 'lun_sub' : 체육부 점심, ''}
+dorm2.getSpecialFood() # 이번주 특식 반환 {'special': 특식}
+dorm2.getDayFood(1) # 이번주 월~일요일 학식 반환 (1~7 입력), getTodayFood와 반환 형식은 같다.
+dorm2.getNextDayFood() # 다음날 학식 반환
+
+# 긁을 수 없는 상황 (ex : 업데이트 안 됨, 다음날의 자료 없음 등등)에는 빈 dict를 반환 한다.
+```
 ## Contributing
 pull request를 환영 합니다! 버그 혹은 문제점이 발생 했다면 github issues를 이용 해 주세요!
 
