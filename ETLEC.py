@@ -27,11 +27,21 @@ class ETLEC:
             self.auth = True
             return True
     
-    def set_professor_list(self):
+    def set_professor_list(self, year, semester):
         self.professorList = []
 
         if self.auth == False:
             return self.professorList
+
+        login_info = {'userid': self.userid, 'password': self.password, 'redirect': '/'}
+        form_data = {'campusId':'8', 'year': year, 'semester': semester, 'startNum': '0', 'limitNum' : '50'}
+
+
+        with requests.Session() as session:
+            user_res = session.post('https://everytime.kr/user/login', data=login_info)
+            user_res = session.post('https://everytime.kr/find/timetable/subject/list', data=form_data)
+
+            print(user_res.text)
         
 
 
