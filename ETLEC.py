@@ -8,6 +8,7 @@ class ETLEC:
         self.password = password
         self.auth = False
         self.professorList = []
+        self.lectureList = []
         self.LEList = []
     
     def set_auth(self):
@@ -62,6 +63,34 @@ class ETLEC:
 
     def get_professor_list(self):
         return self.professorList
+
+    def set_lecture_list(self):
+        self.lecutreList = []
+
+        if self.auth == False:
+            return
+
+        login_info = {'userid': self.userid, 'password': self.password, 'redirect': '/'}
+
+        temp = set()
+        
+        with requests.Session() as session:
+            user_res = session.post('https://everytime.kr/user/login', data=login_info)
+
+            for i in self.professorList:
+                user_res = session.post('https://everytime.kr/find/lecture/list/keyword', data={'keyword': i})
+                soup = BeautifulSoup(user_res.text, 'lxml-xml')
+
+                temp_set = set(map(lambda x: x["id"], soup.select('lecture')))
+                temp = temp | temp_set
+            
+            self.lectureList = list(temp)
+            return
+
+    def get_lecture_list(self):
+        return self.lectureList
+
+
 
 
 
