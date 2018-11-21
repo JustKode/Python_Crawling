@@ -31,7 +31,7 @@ class ETLEC:
         self.professorList = []
 
         if self.auth == False:
-            return self.professorList
+            return
 
         login_info = {'userid': self.userid, 'password': self.password, 'redirect': '/'}
         form_data = {'campusId':'8', 'year': year, 'semester': semester, 'startNum': '0', 'limitNum' : '50'}
@@ -41,8 +41,28 @@ class ETLEC:
             user_res = session.post('https://everytime.kr/user/login', data=login_info)
             user_res = session.post('https://everytime.kr/find/timetable/subject/list', data=form_data)
 
-            print(user_res.text)
-        
+            soup = BeautifulSoup(user_res.text, 'lxml-xml')
+            temp = set(map(lambda x: x["professor"], soup.select('subject')))
+            temp_set = set(temp)
+            print(temp)
+
+            i = 0
+            while len(temp) != 0:
+                i += 50
+                form_data['startNum'] = str(i)
+                user_res = session.post('https://everytime.kr/find/timetable/subject/list', data=form_data)
+
+                soup = BeautifulSoup(user_res.text, 'lxml-xml')
+                temp = set(map(lambda x: x["professor"], soup.select('subject')))
+
+                temp_set = temp_set | temp
+
+            self.professorList = list(temp_set)
+            return
+
+    def get_professor_list(self):
+        return self.professorList
+
 
 
         
