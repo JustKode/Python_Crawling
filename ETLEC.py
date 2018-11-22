@@ -9,7 +9,7 @@ class ETLEC:
         self.auth = False
         self.professorList = []
         self.lectureList = []
-        self.LEList = []
+        self.evaluateList = []
     
     def set_auth(self):
         login_info = {'userid': self.userid, 'password': self.password, 'redirect': '/'}
@@ -65,7 +65,7 @@ class ETLEC:
         return self.professorList
 
     def set_lecture_list(self):
-        self.lecutreList = []
+        self.lectureList = []
 
         if self.auth == False:
             return
@@ -90,7 +90,40 @@ class ETLEC:
     def get_lecture_list(self):
         return self.lectureList
 
+    def set_evaluate_list(self):
+        self.evaluateList = []
 
+        if self.auth == False:
+            return
+        
+        login_info = {'userid': self.userid, 'password': self.password, 'redirect': '/'}
+        
+        with requests.Session() as session:
+            user_res = session.post('https://everytime.kr/user/login', data=login_info)
+
+            for i in self.lectureList:
+                form_data = {"school_id": "5", "limit_num": "100", "lecture_id": i}
+
+                user_res = session.post('https://everytime.kr/find/lecture/article/list', form_data)
+                soup = BeautifulSoup(user_res.text, 'html.parser')
+
+                lecture_info = soup.select_one('lecture')
+                evaluate_list = soup.select('article')
+                rate = soup.select_one('rate')
+
+                for j in evaluate_list:
+                    temp = {
+                        "university": "경희대학교",
+                        "instructor": lecture_info["professor"],
+                        "title": lecture_info["name"],
+                        "point": rate.text,
+                        "content": j["text"]
+                    }
+                    self.evaluateList.append(temp)
+        return
+
+    def get_evaluate_list(self):
+        return self.evaluateList
 
 
 
