@@ -82,6 +82,8 @@ class ETLEC:
                 soup = BeautifulSoup(user_res.text, 'lxml-xml')
 
                 temp_set = set(map(lambda x: x["id"], soup.select('lecture')))
+                print(temp_set)
+
                 temp = temp | temp_set
             
             self.lectureList = list(temp)
@@ -116,14 +118,18 @@ class ETLEC:
                         "university": "경희대학교",
                         "instructor": lecture_info["professor"],
                         "title": lecture_info["name"],
-                        "point": rate.text,
-                        "content": j["text"]
+                        "point": j["rate"],
+                        "content": j["text"].replace("\n", " ")
                     }
+                    print(temp)
                     self.evaluateList.append(temp)
         return
 
     def get_evaluate_list(self):
         return self.evaluateList
+
+
+
 
 
 
