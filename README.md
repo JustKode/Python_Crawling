@@ -62,6 +62,21 @@ dorm2.getNextDayFood() # 다음날 학식 반환
 
 # 긁을 수 없는 상황 (ex : 업데이트 안 됨, 다음날의 자료 없음 등등)에는 빈 dict를 반환 한다.
 ```
+
+Mongoplate Class
+
+```python
+from mangoplate import Mangoplate
+
+mango = Mangoplate() # Mangoplate 객체 생성
+mango.setUrl('영통') # 검색어 설정
+mango.setEvaluateList() # 크롤링을 통해 가게 리스트와, 리뷰 리스트를 설정한다. 
+mango.getStoreList(1) # 가게 리스트 반환
+mango.getEvaluateList() # 리뷰 리스트 반환
+
+# 긁을 수 없는 상황 (ex : 업데이트 안 됨, 다음날의 자료 없음 등등)에는 빈 dict를 반환 한다.
+```
+
 ## Contributing
 pull request를 환영 합니다! 버그 혹은 문제점이 발생 했다면 github issues를 이용 해 주세요!
 
