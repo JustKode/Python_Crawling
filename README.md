@@ -59,6 +59,20 @@ dorm2.getTodayFood()
 dorm2.getSpecialFood() # 이번주 특식 반환 {'special': 특식}
 dorm2.getDayFood(1) # 이번주 월~일요일 학식 반환 (1~7 입력), getTodayFood와 반환 형식은 같다.
 dorm2.getNextDayFood() # 다음날 학식 반환
+# 긁을 수 없는 상황 (ex : 업데이트 안 됨, 다음날의 자료 없음 등등)에는 빈 array를 반환 한다.
+```
+
+ETLEC Class (에브리타임의 강의 리뷰를 모두 긁는다.)
+
+```python
+from ETLEC import ETLEC
+
+etlec = ETLEC('에브리타임 아이디', '에브리타임 비밀번호')
+etlec.set_auth() # 로그인 확인, 성공 시 True, 실패 시 False
+etlec.set_professor_list('년도', '학기') # 해당 년도와 학기에 강의를 시행하는 교수 리스트 설정
+etlec.set_lecture_list() # 교수 리스트에 있는 교수명들을 이용, 강의 ID 설정
+etlec.set_evaluate_list() # 강의 ID를 이용, 강의 평가 리스트 설정
+etlec.get_evaluate_list() # [{'university': '경희대학교', 'instructor': '교수명', 'title': '강의명', 'point': '평점', 'content': '강의 '}]
 
 # 긁을 수 없는 상황 (ex : 업데이트 안 됨, 다음날의 자료 없음 등등)에는 빈 dict를 반환 한다.
 ```
