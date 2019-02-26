@@ -20,16 +20,15 @@ class KLAS():
         with requests.Session() as session:
             user_res = session.post(base_url + 'user/loginUser.do', data=login_info)
             
-            user_res = session.get(base_url + 'classroom/viewClassroomCourseMoreList.do?courseType=ing')
-
-            user_soup = BeautifulSoup(user_res.text, 'html.parser')
-
-            if len(user_soup.select('noscript')) == 1:
+            if len(session.cookies) == 1:
                 self.auth=False
                 return self.auth
             else:
                 self.auth=True
-                
+            
+            user_res = session.get(base_url + 'classroom/viewClassroomCourseMoreList.do?courseType=ing')
+
+            user_soup = BeautifulSoup(user_res.text, 'html.parser')  
 
             lec_list_var1 = user_soup.select('#tbl > tbody > tr > td:nth-of-type(2)')
             lec_list_var2 = user_soup.select('#tbl > tbody > tr > td:nth-of-type(4)')
